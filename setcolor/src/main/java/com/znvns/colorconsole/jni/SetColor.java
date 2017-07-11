@@ -1,23 +1,17 @@
 package com.znvns.colorconsole.jni;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.net.URISyntaxException;
-
-import static com.znvns.colorconsole.jni.SetColor.Color.BLACK;
-import static com.znvns.colorconsole.jni.SetColor.Color.LIGHT_GREEN;
 
 public class SetColor {
 	static {
 		try {
-			System.out.println(System.getProperty("java.library.path"));
 			String absolutePath = new File(SetColor.class.getClassLoader().getResource("").toURI()).getAbsolutePath();
 			absolutePath = absolutePath.replaceAll("test-classes", "classes");
-			System.out.println(absolutePath);
 
 			System.setProperty("java.library.path", absolutePath + ";" + System.getProperty("java.library.path"));
-			System.out.println(System.getProperty("java.library.path"));
-            System.out.println(System.getProperty("os.arch"));
-            System.out.println(System.getenv("PROCESSOR_ARCHITECTURE"));
             if(System.getProperty("os.arch").contains("64")){
                 System.load(absolutePath + File.separator + "SetColor_64.dll");
                 //System.loadLibrary("SetColor_64");
@@ -44,13 +38,13 @@ public class SetColor {
         YELLOW(2, 4),
         CYAN(1, 2),
         WHITE(1, 2, 4),
-        GREY(1, 2, 4),
         LIGHT_BLUE(1, 8),
         LIGHT_GREEN(2, 8),
         LIGHT_RED(4, 8),
         LIGHT_MAGENTA(1, 4, 8),
         LIGHT_YELLOW(2, 4, 8),
-        LIGHT_CYAN(1, 2, 8);
+        LIGHT_CYAN(1, 2, 8),
+        LIGHT_WHITE(1, 2, 4, 8);
 
 
 		private int value;
@@ -89,11 +83,16 @@ public class SetColor {
 
 
     public static void main(String[] args) {
-        SetColor.setColor(Color.RED, Color.BLACK);
-        System.out.println("hello");
 
-        SetColor.revert();
-        System.out.println("default");
+        Logger.getLogger(SetColor.class).debug("debug info");
+        Logger.getLogger(SetColor.class).debug("debug info");
+        Logger.getLogger(SetColor.class).debug("debug info");
+        Logger.getLogger(SetColor.class).warn("debug info");
+        Logger.getLogger(SetColor.class).warn("debug info");
+        Logger.getLogger(SetColor.class).info("debug info");
+        Logger.getLogger(SetColor.class).info("debug info");
+        Logger.getLogger(SetColor.class).error("debug info");
+        Logger.getLogger(SetColor.class).error("debug info");
 
     }
 }
